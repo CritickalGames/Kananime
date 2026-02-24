@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lista de Reproducción Personalizada</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🎥 Mi Lista de Reproducción</h1>
+
+    <!-- Reproductor de YouTube -->
+    <div class="player">
+      <iframe
+        id="videoPlayer"
+        width="560"
+        height="315"
+        src=""
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <!-- Lista de videos -->
+    <div class="playlist">
+      <div class="video-item active" data-id="CvKoA0Acfts">Video 1: Intro</div>
+      <div class="video-item" data-id="t8DYzbNfCdQ">Video 2: Tutorial</div>
+      <!-- Agrega más si quieres -->
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

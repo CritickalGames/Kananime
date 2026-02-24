@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reproductor estilo YouTube</title>
+</head>
+<body>
+  <h1>Lista de reproducción</h1>
+  <div id="playlist"></div>
+  <button id="loadMore">Cargar más</button>
+
+  <script>
+    let links = [];
+    let currentIndex = 0;
+    const chunkSize = 5; // cantidad de videos por lote
+
+    async function loadPlaylist() {
+      const response = await fetch("videos.json");
+      links = await response.json();
+      loadChunk(); // cargar el primer lote
+    }
+
+    function loadChunk() {
+      const playlist = document.getElementById("playlist");
+      const end = Math.min(currentIndex + chunkSize, links.length);
+
+      for (let i = currentIndex; i < end; i++) {
+        const link = links[i];
+
+        // Crear contenedor
+        const container = document.createElement("div");
+        container.innerHTML = `<h3>Video ${link.i} (relleno: ${link.relleno})</h3>`;
+
+        // Crear iframe
+        const iframe = document.createElement("iframe");
+        iframe.src = link.link;
+        iframe.width = "640";
+        iframe.height = "360";
+        iframe.allow = "autoplay; encrypted-media";
+        iframe.frameBorder = "0";
+        
+        container.appendChild(iframe);
+        playlist.appendChild(container);
+      }
+
+      currentIndex = end;
+      if (currentIndex >= links.length) {
+        document.getElementById("loadMore").style.display = "none"; // ocultar botón
+      }
+    }
+
+    document.getElementById("loadMore").addEventListener("click", loadChunk);
+
+    loadPlaylist();
+  </script>
+</body>
+</html>
