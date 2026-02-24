@@ -3,30 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lista de Reproducción Personalizada</title>
+  <title>Playlist OK.ru</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>🎥 Mi Lista de Reproducción</h1>
+  <h1>🎥 Ver Naruto <span id="cap"></span></h1>
 
-    <!-- Reproductor de YouTube -->
-    <div class="player">
-      <iframe
-        id="videoPlayer"
-        width="560"
-        height="315"
-        src=""
-        frameborder="0"
-        allowfullscreen
-      ></iframe>
+    <!-- Selector de modo -->
+    <div class="mode-selector">
+      <label>
+        <input type="radio" name="mode" value="mixto" checked> Mixto
+      </label>
+      <label>
+        <input type="radio" name="mode" value="sin"> Sin relleno
+      </label>
+      <label>
+        <input type="radio" name="mode" value="con"> Con relleno
+      </label>
     </div>
 
-    <!-- Lista de videos -->
-    <div class="playlist">
-      <div class="video-item active" data-id="CvKoA0Acfts">Video 1: Intro</div>
-      <div class="video-item" data-id="t8DYzbNfCdQ">Video 2: Tutorial</div>
-      <!-- Agrega más si quieres -->
+    <!-- Reproductor -->
+    <div class="player">
+      <iframe id="videoPlayer" width="640" height="360" frameborder="0"></iframe>
+    </div>
+
+    <!-- Controles -->
+    <div class="controls">
+      <button id="prevBtn" class="btn" disabled>◀ Anterior</button>
+      <button id="nextBtn" class="btn">Siguiente ▶</button>
+    </div>
+
+    <!-- Lista con scroll interno -->
+    <div class="playlist-container">
+      <div class="playlist" id="videoList"></div>
     </div>
   </div>
 

@@ -1,57 +1,45 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Reproductor estilo YouTube</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Playlist OK.ru</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Lista de reproducción</h1>
-  <div id="playlist"></div>
-  <button id="loadMore">Cargar más</button>
+  <div class="container">
+  <h1>🎥 Ver Naruto <span id="cap"></span></h1>
 
-  <script>
-    let links = [];
-    let currentIndex = 0;
-    const chunkSize = 5; // cantidad de videos por lote
+    <!-- Selector de modo -->
+    <div class="mode-selector">
+      <label>
+        <input type="radio" name="mode" value="mixto" checked> Mixto
+      </label>
+      <label>
+        <input type="radio" name="mode" value="sin"> Sin relleno
+      </label>
+      <label>
+        <input type="radio" name="mode" value="con"> Con relleno
+      </label>
+    </div>
 
-    async function loadPlaylist() {
-      const response = await fetch("videos.json");
-      links = await response.json();
-      loadChunk(); // cargar el primer lote
-    }
+    <!-- Reproductor -->
+    <div class="player">
+      <iframe id="videoPlayer" width="640" height="360" frameborder="0"></iframe>
+    </div>
 
-    function loadChunk() {
-      const playlist = document.getElementById("playlist");
-      const end = Math.min(currentIndex + chunkSize, links.length);
+    <!-- Controles -->
+    <div class="controls">
+      <button id="prevBtn" class="btn" disabled>◀ Anterior</button>
+      <button id="nextBtn" class="btn">Siguiente ▶</button>
+    </div>
 
-      for (let i = currentIndex; i < end; i++) {
-        const link = links[i];
+    <!-- Lista con scroll interno -->
+    <div class="playlist-container">
+      <div class="playlist" id="videoList"></div>
+    </div>
+  </div>
 
-        // Crear contenedor
-        const container = document.createElement("div");
-        container.innerHTML = `<h3>Video ${link.i} (relleno: ${link.relleno})</h3>`;
-
-        // Crear iframe
-        const iframe = document.createElement("iframe");
-        iframe.src = link.link;
-        iframe.width = "640";
-        iframe.height = "360";
-        iframe.allow = "autoplay; encrypted-media";
-        iframe.frameBorder = "0";
-        
-        container.appendChild(iframe);
-        playlist.appendChild(container);
-      }
-
-      currentIndex = end;
-      if (currentIndex >= links.length) {
-        document.getElementById("loadMore").style.display = "none"; // ocultar botón
-      }
-    }
-
-    document.getElementById("loadMore").addEventListener("click", loadChunk);
-
-    loadPlaylist();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
