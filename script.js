@@ -12,14 +12,21 @@ async function loadVideos() {
   try {
     const saved = JSON.parse(localStorage.getItem('videoPlaylist')) || {};
     
+    //* console.warn("¿había cache?");
     if (saved.allVideos && saved.currentCap !== undefined) {
+      //* console.warn("sí había cache");
       // Usar datos guardados
       allVideos = saved.allVideos;
       currentCap = saved.currentCap;
     } else {
+      //* console.warn("no había cache");
       // Cargar desde JSON
-      const res = await fetch('videos.json');
+      const res = await fetch('series/narutito.json');
       allVideos = await res.json();
+
+      //* Imprimir con formato (indentación de 2 espacios)
+      //* console.warn(JSON.stringify(allVideos, null, 2));
+
       currentCap = allVideos.length > 0 ? allVideos[0].i : null;
       // Guardar en localStorage
       localStorage.setItem('videoPlaylist', JSON.stringify({ allVideos, currentCap }));
